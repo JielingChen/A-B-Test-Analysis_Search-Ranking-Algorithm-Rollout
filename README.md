@@ -4,18 +4,18 @@ Production-style A/B testing project that answers one question: **should we laun
 
 ## Workflow
 ```mermaid
-flowchart LR
-    A[Load Data<br/>users_data + sessions_data] --> B[Create session conversion flag]
-    B --> C[Build triggered ITT cohort<br/>9,454 users]
-    C --> D[Aggregate to user level<br/>converted + first booking time]
-    D --> E[Define launch gates<br/>alpha 0.05 | power 0.80<br/>MDE +15% | guardrail +5%]
-    E --> F[Power check<br/>required 2,318 per group<br/>observed 4,706 and 4,748]
-    F --> G[Sanity checks<br/>SRM p-value=0.8572<br/>Trigger balance p-value=0.2715<br/>Sessions per user p-value=0.5321]
-    G --> H[Primary metric<br/>Conversion +2.78 pp <br/>Relative lift CI [4.13%, 19.66%]]
-    G --> I[Guardrail metric<br/>Median time-to-booking delta -0.18 min<br/>CI [-0.64, 0.31] min]
-    H --> J{All launch gates pass?}
+flowchart TD
+    A["Load Data<br/>users_data + sessions_data"] --> B["Create session conversion flag"]
+    B --> C["Build triggered ITT cohort<br/>9,454 users"]
+    C --> D["Aggregate to user level<br/>converted + first booking time"]
+    D --> E["Define launch gates<br/>alpha 0.05 | power 0.80<br/>MDE +15% | guardrail +5%"]
+    E --> F["Power check<br/>required 2,318 per group<br/>observed 4,706 and 4,748"]
+    F --> G["Sanity checks<br/>SRM p-value=0.8572<br/>Trigger balance p-value=0.2715<br/>Sessions per user p-value=0.5321"]
+    G --> H["Primary metric<br/>Conversion +2.78 pp<br/>Relative lift CI (4.13%, 19.66%)"]
+    G --> I["Guardrail metric<br/>Median time-to-booking delta -0.18 min<br/>CI (-0.64, 0.31) min"]
+    H --> J{"All launch gates pass?"}
     I --> J
-    J -->|No| K[Decision<br/>Do not 100% launch yet<br/>Continue test or staged ramp]
+    J -->|No| K["Decision<br/>Do not 100% launch yet<br/>Continue test or staged ramp"]
 ```
 
 ## Overview
