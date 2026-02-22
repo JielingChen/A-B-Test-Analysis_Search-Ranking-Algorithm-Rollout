@@ -8,7 +8,7 @@ flowchart TD
     A["Load Data<br/>users_data + sessions_data <br/>Create session conversion flag"] --> B["Build triggered ITT cohort<br/>9,454 users<br/>Aggregate to user level"]
     B --> C["Define launch gates<br/>alpha 0.05 | power 0.80<br/>MDE +15% | guardrail +5%"]
     C --> D["Power check<br/>required 2,318 per group<br/>observed 4,706 and 4,748"]
-    D --> E["Sanity checks<br/>SRM chi-square PASS<br/>Trigger balance z-test PASS<br/>Sessions/user t-test PASS"]
+    D --> E["Sanity checks<br/>SRM chi-square PASS<br/>Trigger balance z-test PASS<br/>User engagement t-test PASS"]
     E --> F["Primary metric<br/>Conversion +2.78 pp<br/>Relative lift<br/>CI (4.13%, 19.66%)"]
     F --> G["Guardrail metric<br/>Median time-to-booking decrease 0.18 min<br/>CI (-0.64, 0.31) min"]
     G --> H{All launch gates pass?}
