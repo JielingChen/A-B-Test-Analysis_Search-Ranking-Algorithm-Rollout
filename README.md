@@ -12,7 +12,7 @@ flowchart TD
     E --> F["Primary metric<br/>Conversion +2.78 pp<br/>Relative lift<br/>CI (4.13%, 19.66%)"]
     F --> G["Guardrail metric<br/>Median time-to-booking decrease 0.18 min<br/>CI (-0.64, 0.31) min"]
     G --> H{"All launch gates pass?"}
-    I -->|No| K["Decision<br/>Do not 100% launch yet<br/>Continue test or staged ramp"]
+    H -->|No| I["Decision<br/>Do not 100% launch yet<br/>Continue test or staged ramp"]
 ```
 ## Key Results
 | Area | Result | Interpretation |
