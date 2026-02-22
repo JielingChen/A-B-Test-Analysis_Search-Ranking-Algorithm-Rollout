@@ -1,6 +1,6 @@
 # A/B Test Analysis: Search Ranking Algorithm Rollout
 
-Production-style A/B testing project that answers one question: **should we launch a new ranking algorithm to 100% of traffic?**
+Production-style A/B testing project that answers one question: **should we launch a new ranking algorithm to 100% of traffic, given both upside (conversion) and risk (time to booking)?**
 
 ## Workflow
 ```mermaid
@@ -33,9 +33,6 @@ flowchart TD
 - Found statistically significant conversion improvement: **+2.78 pp** (control 23.99% -> variant 26.77%, p-value=0.0019).
 - Found guardrail safety on booking friction: median time-to-booking delta **-0.18 min** (95% CI: [-0.64, 0.31] min).
 - Final decision: **do not full-launch yet** under strict practical-significance gates; continue test or staged ramp.
-
-## Business Question
-Should the company launch the new search ranking algorithm to all users, given both upside (conversion) and risk (time to booking)?
 
 ## Data
 - `users_data.csv`: randomized assignment (`control` vs `variant`) for 10,000 logged-in users.
