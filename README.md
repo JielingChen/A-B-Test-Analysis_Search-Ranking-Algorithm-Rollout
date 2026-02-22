@@ -5,16 +5,14 @@ Production-style A/B testing project that answers one question: **should we laun
 ## Workflow
 ```mermaid
 flowchart TD
-    A["Load Data<br/>users_data + sessions_data <br/>and create session conversion flag"] --> B["Build triggered ITT cohort<br/>9,454 users"]
-    B --> C["Aggregate to user level<br/>converted + first booking time"]
-    C --> D["Define launch gates<br/>alpha 0.05 | power 0.80<br/>MDE +15% | guardrail +5%"]
-    D --> E["Power check<br/>required 2,318 per group<br/>observed 4,706 and 4,748"]
-    E --> F["Sanity checks<br/>SRM chi-square PASS<br/>Trigger balance z-test PASS<br/>Sessions per user t-test PASS"]
-    F --> G["Primary metric<br/>Conversion +2.78 pp<br/>Relative lift<br/>CI (4.13%, 19.66%)"]
-    G --> H["Guardrail metric<br/>Median time-to-booking decrease 0.18 min<br/>CI (-0.64, 0.31) min"]
-    H --> I{"All launch gates pass?"}
-    I --> J
-    J -->|No| K["Decision<br/>Do not 100% launch yet<br/>Continue test or staged ramp"]
+    A["Load Data<br/>users_data + sessions_data <br/>Create session conversion flag"] --> B["Build triggered ITT cohort<br/>9,454 users<br/>Aggregate to user level"]
+    B --> C["Define launch gates<br/>alpha 0.05 | power 0.80<br/>MDE +15% | guardrail +5%"]
+    C --> D["Power check<br/>required 2,318 per group<br/>observed 4,706 and 4,748"]
+    D --> E["Sanity checks<br/>SRM chi-square PASS<br/>Trigger balance z-test PASS<br/>Sessions/user t-test PASS"]
+    E --> F["Primary metric<br/>Conversion +2.78 pp<br/>Relative lift<br/>CI (4.13%, 19.66%)"]
+    F --> G["Guardrail metric<br/>Median time-to-booking decrease 0.18 min<br/>CI (-0.64, 0.31) min"]
+    G --> H{"All launch gates pass?"}
+    I -->|No| K["Decision<br/>Do not 100% launch yet<br/>Continue test or staged ramp"]
 ```
 ## Key Results
 | Area | Result | Interpretation |
