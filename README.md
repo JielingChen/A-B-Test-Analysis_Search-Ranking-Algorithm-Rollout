@@ -11,8 +11,8 @@ flowchart TD
     D --> E["Sanity checks<br/>SRM chi-square PASS<br/>Trigger balance z-test PASS<br/>Sessions/user t-test PASS"]
     E --> F["Primary metric<br/>Conversion +2.78 pp<br/>Relative lift<br/>CI (4.13%, 19.66%)"]
     F --> G["Guardrail metric<br/>Median time-to-booking decrease 0.18 min<br/>CI (-0.64, 0.31) min"]
-    G --> H{"All launch gates pass?"}
-    H -->|No| I["Decision<br/>Do not 100% launch yet<br/>Continue test or staged ramp"]
+    G --> H{All launch gates pass?}
+    H -->|No| I["Decision<br/>Do not full launch yet<br/>Continue test or staged ramp"]
 ```
 ## Key Results
 | Area | Result | Interpretation |
