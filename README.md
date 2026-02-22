@@ -5,18 +5,29 @@ Production-style A/B testing project that answers one question: **should we laun
 ## Workflow
 ```mermaid
 flowchart TD
-    A["Load Data<br/>users_data + sessions_data"] --> B["Create session conversion flag"]
-    B --> C["Build triggered ITT cohort<br/>9,454 users"]
-    C --> D["Aggregate to user level<br/>converted + first booking time"]
-    D --> E["Define launch gates<br/>alpha 0.05 | power 0.80<br/>MDE +15% | guardrail +5%"]
-    E --> F["Power check<br/>required 2,318 per group<br/>observed 4,706 and 4,748"]
-    F --> G["Sanity checks<br/>SRM p-value=0.8572<br/>Trigger balance p-value=0.2715<br/>Sessions per user p-value=0.5321"]
-    G --> H["Primary metric<br/>Conversion +2.78 pp<br/>Relative lift CI (4.13%, 19.66%)"]
-    G --> I["Guardrail metric<br/>Median time-to-booking delta -0.18 min<br/>CI (-0.64, 0.31) min"]
-    H --> J{"All launch gates pass?"}
+    A["Load Data<br/>users_data + sessions_data <br/>and create session conversion flag"] --> B["Build triggered ITT cohort<br/>9,454 users"]
+    B --> C["Aggregate to user level<br/>converted + first booking time"]
+    C --> D["Define launch gates<br/>alpha 0.05 | power 0.80<br/>MDE +15% | guardrail +5%"]
+    D --> E["Power check<br/>required 2,318 per group<br/>observed 4,706 and 4,748"]
+    E --> F["Sanity checks<br/>SRM chi-square PASS<br/>Trigger balance z-test PASS<br/>Sessions per user t-test PASS"]
+    F --> G["Primary metric<br/>Conversion +2.78 pp<br/>Relative lift<br/>CI (4.13%, 19.66%)"]
+    G --> H["Guardrail metric<br/>Median time-to-booking decrease 0.18 min<br/>CI (-0.64, 0.31) min"]
+    H --> I{"All launch gates pass?"}
     I --> J
     J -->|No| K["Decision<br/>Do not 100% launch yet<br/>Continue test or staged ramp"]
 ```
+## Key Results
+| Area | Result | Interpretation |
+|---|---:|---|
+| Triggered users | 9,454 / 10,000 (94.54%) | Strong analysis coverage |
+| Required sample size | 2,318 per group | Power requirement met |
+| Observed sample size | 4,706 control / 4,748 variant | Well-powered for target MDE |
+| SRM check | p-value=0.8572 | No assignment imbalance |
+| Trigger-rate balance | p-value=0.2715 | No funnel-entry bias |
+| Sessions/user balance | p-value=0.5321 | No engagement imbalance |
+| Conversion lift (absolute) | +2.78 pp, 95% CI [1.03, 4.53] pp | Statistically significant improvement |
+| Conversion lift (relative) | +11.58%, 95% CI [4.13%, 19.66%] | CI overlaps +15% MDE threshold |
+| Guardrail (median time-to-booking) | -0.18 min, 95% CI [-0.64, 0.31] min, p-value=0.4129 | No meaningful degradation |
 
 ## Overview
 - Built an end-to-end experiment analysis from raw session/user logs to launch recommendation.
@@ -57,19 +68,6 @@ Should the company launch the new search ranking algorithm to all users, given b
   - Mann-Whitney U test.
   - Bootstrap CI for median time-to-booking delta.
   - Non-inferiority decision against pre-defined tolerance.
-
-## Key Results
-| Area | Result | Interpretation |
-|---|---:|---|
-| Triggered users | 9,454 / 10,000 (94.54%) | Strong analysis coverage |
-| Required sample size | 2,318 per group | Power requirement met |
-| Observed sample size | 4,706 control / 4,748 variant | Well-powered for target MDE |
-| SRM check | p-value=0.8572 | No assignment imbalance |
-| Trigger-rate balance | p-value=0.2715 | No funnel-entry bias |
-| Sessions/user balance | p-value=0.5321 | No engagement imbalance |
-| Conversion lift (absolute) | +2.78 pp, 95% CI [1.03, 4.53] pp | Statistically significant improvement |
-| Conversion lift (relative) | +11.58%, 95% CI [4.13%, 19.66%] | CI overlaps +15% MDE threshold |
-| Guardrail (median time-to-booking) | -0.18 min, 95% CI [-0.64, 0.31] min, p-value=0.4129 | No meaningful degradation |
 
 ## Launch Recommendation
 **Decision: Hold full rollout for now.**
