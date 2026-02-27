@@ -1,6 +1,6 @@
 # A/B Test Analysis: Search Ranking Algorithm Rollout
 
-Production-style A/B testing project that answers one question: **should we launch a new ranking algorithm to 100% of traffic, given both upside (conversion) and risk (time to booking)?**
+Production-style A/B testing project that answers one question: **should an online booking platform launch a new ranking algorithm to 100% of traffic, given both upside (conversion) and risk (time to booking)?**
 
 ## Workflow
 ```mermaid
